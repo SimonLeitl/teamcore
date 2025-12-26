@@ -141,6 +141,45 @@ The `vercel.json` file configures how Vercel builds and deploys your functions. 
 - TypeScript functions in the `/api` directory
 - Node.js runtime version
 
+## 🔐 Environment Variables
+
+The following environment variables are required for the serverless functions:
+
+### Supabase Configuration
+
+- `SUPABASE_URL`: Your Supabase project URL (e.g., `https://xxxxx.supabase.co`)
+- `SUPABASE_KEY`: Your Supabase API key (use service role key for server-side operations)
+
+### FUPA API Configuration (Optional)
+
+- `FUPA_API_URL`: FUPA API endpoint URL (default: `https://api.fupa.net/v1/teams/tus-ellmendingen-m1-2025-26/squad`)
+
+### Local Development Setup
+
+1. Copy the example environment file and fill in your credentials:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Edit `.env.local` with your actual values:
+
+```bash
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your-service-role-key
+FUPA_API_URL=https://api.fupa.net/v1/teams/tus-ellmendingen-m1-2025-26/squad
+```
+
+3. The Vercel CLI will automatically load these variables during local development.
+
+### Production Deployment
+
+Set environment variables in your Vercel project settings:
+
+1. Go to your project on Vercel
+2. Navigate to Settings → Environment Variables
+3. Add the required variables for production, preview, and development environments
+
 ## 📚 API Documentation
 
 ### `GET /api/hello`
@@ -158,6 +197,82 @@ Sample hello world endpoint.
   "method": "GET"
 }
 ```
+
+### `POST /api/fetchPlayers`
+
+Fetches all players from the FUPA API and stores them in Supabase Postgres.
+
+**Method:** `POST`
+
+**Environment Variables Required:**
+- `SUPABASE_URL`
+- `SUPABASE_KEY`
+- `FUPA_API_URL` (optional)
+
+**Request:**
+No request body required.
+
+**Success Response (200):**
+```json
+{
+  "message": "Players fetched and stored successfully",
+  "playersProcessed": 25,
+  "timestamp": "2025-12-26T21:00:00.000Z"
+}
+```
+
+**Error Response (500):**
+```json
+{
+  "error": "Failed to fetch and store players",
+  "message": "Error details here",
+  "playersProcessed": 0,
+  "timestamp": "2025-12-26T21:00:00.000Z"
+}
+```
+
+**Database Schema:**
+
+The function expects a `players` table in Supabase with the following structure:
+
+```sql
+CREATE TABLE players (
+  id TEXT PRIMARY KEY,
+  slug TEXT NOT NULL,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  is_deactivated BOOLEAN NOT NULL DEFAULT false,
+  position TEXT NOT NULL,
+  image_path TEXT,
+  jersey_number INTEGER NOT NULL,
+  matches INTEGER NOT NULL DEFAULT 0,
+  goals INTEGER NOT NULL DEFAULT 0,
+  age INTEGER NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Optional: Add trigger to automatically update updated_at on row updates
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_players_updated_at 
+  BEFORE UPDATE ON players 
+  FOR EACH ROW 
+  EXECUTE FUNCTION update_updated_at_column();
+```
+
+**Features:**
+- Validates API response using Zod schemas
+- Uses upsert to prevent duplicates (updates existing players based on ID)
+- Handles errors gracefully with detailed error messages
+- Structured logging for debugging
+- Modular architecture with services and adapters
 
 ## 🤝 Contributing
 
