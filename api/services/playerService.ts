@@ -58,7 +58,6 @@ export class PlayerService {
       position: player.position,
       date_of_birth: player.dateOfBirth,
       nationality: player.nationality,
-      updated_at: new Date().toISOString(),
     };
   }
 

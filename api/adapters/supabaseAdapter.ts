@@ -30,7 +30,13 @@ export class SupabasePlayerAdapter {
       .select();
 
     if (error) {
-      throw new Error(`Failed to upsert players: ${error.message}`);
+      console.error('Supabase upsert error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+      });
+      throw new Error(`Failed to upsert players: ${error.message}${error.hint ? ` - ${error.hint}` : ''}`);
     }
 
     return data as PlayerRecord[];
@@ -48,7 +54,13 @@ export class SupabasePlayerAdapter {
       .order('last_name', { ascending: true });
 
     if (error) {
-      throw new Error(`Failed to fetch players: ${error.message}`);
+      console.error('Supabase fetch error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+      });
+      throw new Error(`Failed to fetch players: ${error.message}${error.hint ? ` - ${error.hint}` : ''}`);
     }
 
     return data as PlayerRecord[];

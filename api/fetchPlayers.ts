@@ -68,11 +68,16 @@ export default async function handler(
   } catch (error) {
     // Handle unexpected errors
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorStack = error instanceof Error ? error.stack : undefined;
     
-    console.error('Unexpected error in fetchPlayers handler:', {
+    // Structured logging for Vercel
+    console.error(JSON.stringify({
+      level: 'error',
+      service: 'fetchPlayers',
       error: errorMessage,
+      stack: errorStack,
       timestamp: new Date().toISOString(),
-    });
+    }));
 
     res.status(500).json({
       error: 'Internal Server Error',
