@@ -2,6 +2,11 @@ import { z } from 'zod';
 
 /**
  * Validation schema for player image from FUPA API
+ * 
+ * @property path - URL path to the player's image
+ * @property description - Alt text description of the image
+ * @property source - Source/credit for the image (e.g., photographer name)
+ * @property svg - Whether the image is in SVG format (false for raster formats)
  */
 export const playerImageSchema = z.object({
   path: z.string(),

@@ -6,9 +6,13 @@
  * Player image structure from FUPA API
  */
 export interface PlayerImage {
+  /** URL path to the player's image */
   path: string;
+  /** Alt text description of the image */
   description: string;
+  /** Source/credit for the image (e.g., photographer name) */
   source: string;
+  /** Whether the image is in SVG format (false for raster formats like JPG/PNG) */
   svg: boolean;
 }
 
