@@ -83,7 +83,7 @@ export class PlayerService {
         return {
           success: true,
           playersProcessed: 0,
-          errors: ['No players found in API response'],
+          errors: [],
         };
       }
 
