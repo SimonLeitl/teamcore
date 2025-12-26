@@ -238,12 +238,16 @@ The function expects a `players` table in Supabase with the following structure:
 ```sql
 CREATE TABLE players (
   id TEXT PRIMARY KEY,
+  slug TEXT NOT NULL,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
-  jersey_number INTEGER,
-  position TEXT,
-  date_of_birth TEXT,
-  nationality TEXT,
+  is_deactivated BOOLEAN NOT NULL DEFAULT false,
+  position TEXT NOT NULL,
+  image_path TEXT,
+  jersey_number INTEGER NOT NULL,
+  matches INTEGER NOT NULL DEFAULT 0,
+  goals INTEGER NOT NULL DEFAULT 0,
+  age INTEGER NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

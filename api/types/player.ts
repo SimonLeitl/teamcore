@@ -3,16 +3,31 @@
  */
 
 /**
+ * Player image structure from FUPA API
+ */
+export interface PlayerImage {
+  path: string;
+  description: string;
+  source: string;
+  svg: boolean;
+}
+
+/**
  * Player data structure from FUPA API
  */
 export interface Player {
-  id: string;
+  id: number;
+  slug: string;
   firstName: string;
   lastName: string;
-  jerseyNumber?: number;
-  position?: string;
-  dateOfBirth?: string;
-  nationality?: string;
+  isDeactivated: boolean;
+  position: string;
+  image: PlayerImage | null;
+  jerseyNumber: number;
+  matches: number;
+  goals: number;
+  flags: string[];
+  age: number;
 }
 
 /**
@@ -20,12 +35,16 @@ export interface Player {
  */
 export interface PlayerRecord {
   id: string;
+  slug: string;
   first_name: string;
   last_name: string;
-  jersey_number?: number;
-  position?: string;
-  date_of_birth?: string;
-  nationality?: string;
+  is_deactivated: boolean;
+  position: string;
+  image_path?: string;
+  jersey_number: number;
+  matches: number;
+  goals: number;
+  age: number;
   created_at?: string;
   updated_at?: string;
 }

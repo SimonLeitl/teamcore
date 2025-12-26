@@ -51,13 +51,17 @@ export class PlayerService {
    */
   private transformPlayerToRecord(player: Player): PlayerRecord {
     return {
-      id: player.id,
+      id: player.id.toString(),
+      slug: player.slug,
       first_name: player.firstName,
       last_name: player.lastName,
-      jersey_number: player.jerseyNumber,
+      is_deactivated: player.isDeactivated,
       position: player.position,
-      date_of_birth: player.dateOfBirth,
-      nationality: player.nationality,
+      image_path: player.image?.path,
+      jersey_number: player.jerseyNumber,
+      matches: player.matches,
+      goals: player.goals,
+      age: player.age,
     };
   }
 
