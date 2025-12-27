@@ -38,12 +38,12 @@ jobs:
       - name: Verify migration files
         run: |
           echo "Checking for migration files..."
-          if [ -z "$(ls -A supabase/migrations/*.sql 2>/dev/null)" ]; then
+          if [ ! -d "supabase/migrations" ] || [ -z "$(find supabase/migrations -name '*.sql' 2>/dev/null)" ]; then
             echo "No migration files found in supabase/migrations/"
             exit 1
           fi
           echo "Found migration files:"
-          ls -1 supabase/migrations/*.sql
+          find supabase/migrations -name '*.sql' -type f | sort
 
       - name: Link Supabase project
         env:

@@ -1,9 +1,6 @@
 -- Initial schema for TeamCore database
 -- Creates the players table with all required fields and indexes
 
--- Enable UUID extension if not already enabled
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 -- Create players table
 CREATE TABLE IF NOT EXISTS public.players (
   id TEXT PRIMARY KEY,

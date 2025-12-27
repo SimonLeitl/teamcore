@@ -52,7 +52,38 @@ function createMigration(name) {
 -- Created at: ${new Date().toISOString()}
 -- Description: Add a description of what this migration does
 
--- Your SQL migration code here
+-- Example patterns:
+
+-- 1. Create a new table
+-- CREATE TABLE IF NOT EXISTS public.your_table (
+--   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+--   name TEXT NOT NULL,
+--   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+--   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+-- );
+
+-- 2. Add a column to existing table
+-- ALTER TABLE public.your_table 
+--   ADD COLUMN IF NOT EXISTS new_column TEXT;
+
+-- 3. Create an index
+-- CREATE INDEX IF NOT EXISTS idx_your_table_column 
+--   ON public.your_table(column_name);
+
+-- 4. Add a foreign key
+-- ALTER TABLE public.child_table 
+--   ADD CONSTRAINT fk_child_parent 
+--   FOREIGN KEY (parent_id) 
+--   REFERENCES public.parent_table(id)
+--   ON DELETE CASCADE;
+
+-- 5. Create trigger for updated_at
+-- CREATE TRIGGER update_your_table_updated_at 
+--   BEFORE UPDATE ON public.your_table 
+--   FOR EACH ROW 
+--   EXECUTE FUNCTION public.update_updated_at_column();
+
+-- Your SQL migration code here:
 
 `;
 
