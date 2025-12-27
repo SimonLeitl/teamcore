@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc --noEmit",
+    "build": "tsc",
     "type-check": "tsc --noEmit"
   },
   "keywords": [
