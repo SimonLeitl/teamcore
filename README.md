@@ -52,11 +52,26 @@ npm run build
 teamcore/
 ├── api/                      # Serverless functions directory
 │   ├── hello.ts             # Sample TypeScript serverless function
+│   ├── fetchPlayers.ts      # Fetch and store players from FUPA API
+│   ├── adapters/            # Database and external service adapters
+│   ├── services/            # Business logic layer
+│   ├── types/               # TypeScript type definitions
+│   ├── validators/          # Zod schemas for validation
 │   └── tsconfig.json        # TypeScript configuration for API functions
+├── supabase/                # Database migrations and configuration
+│   ├── migrations/          # SQL migration files (version controlled)
+│   ├── seed/                # Seed data for local development
+│   └── config.toml          # Local Supabase configuration
+├── scripts/                 # Helper scripts
+│   └── migrate.js           # Migration helper script
+├── .github/                 # GitHub Actions workflows
+│   └── workflows/           
+│       └── migrate.yml      # Automated migration workflow
 ├── .gitignore               # Git ignore rules
 ├── .vercelignore            # Vercel deployment ignore rules
 ├── package.json             # Project dependencies and scripts
 ├── vercel.json              # Vercel deployment configuration
+├── MIGRATIONS.md            # Database migration documentation
 └── README.md                # This file
 ```
 
@@ -273,6 +288,34 @@ CREATE TRIGGER update_players_updated_at
 - Handles errors gracefully with detailed error messages
 - Structured logging for debugging
 - Modular architecture with services and adapters
+
+## 🗃️ Database Migrations
+
+TeamCore uses Supabase CLI for database schema management. All schema changes are version controlled through SQL migration files.
+
+### Quick Start
+
+```bash
+# Create a new migration
+npm run migrate:create add_new_feature
+
+# List all migrations
+npm run migrate:list
+
+# Apply migrations to production
+npm run db:migrate
+
+# Check migration status
+npm run db:status
+```
+
+### Detailed Documentation
+
+For comprehensive migration documentation, including best practices, common patterns, and troubleshooting, see [MIGRATIONS.md](./MIGRATIONS.md).
+
+### Automated Migrations
+
+Migrations are automatically applied when changes to `supabase/migrations/` are pushed to the `main` branch via GitHub Actions. See `.github/workflows/migrate.yml` for details.
 
 ## 🤝 Contributing
 
