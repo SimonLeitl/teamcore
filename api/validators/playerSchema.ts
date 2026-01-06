@@ -11,7 +11,7 @@ import { z } from 'zod';
 export const playerImageSchema = z.object({
   path: z.string(),
   description: z.string(),
-  source: z.string(),
+  source: z.string().nullable(),
   svg: z.boolean(),
 });
 
@@ -26,7 +26,7 @@ export const playerSchema = z.object({
   isDeactivated: z.boolean(),
   position: z.string(),
   image: playerImageSchema.nullable(),
-  jerseyNumber: z.number(),
+  jerseyNumber: z.number().nullable(),
   matches: z.number(),
   goals: z.number(),
   flags: z.array(z.string()),

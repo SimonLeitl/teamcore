@@ -11,7 +11,7 @@ export interface PlayerImage {
   /** Alt text description of the image */
   description: string;
   /** Source/credit for the image (e.g., photographer name) */
-  source: string;
+  source: string | null;
   /** Whether the image is in SVG format (false for raster formats like JPG/PNG) */
   svg: boolean;
 }
@@ -27,7 +27,7 @@ export interface Player {
   isDeactivated: boolean;
   position: string;
   image: PlayerImage | null;
-  jerseyNumber: number;
+  jerseyNumber: number | null;
   matches: number;
   goals: number;
   flags: string[];
@@ -45,7 +45,7 @@ export interface PlayerRecord {
   is_deactivated: boolean;
   position: string;
   image_path?: string;
-  jersey_number: number;
+  jersey_number: number | null;
   matches: number;
   goals: number;
   age: number;
