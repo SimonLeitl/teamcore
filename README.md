@@ -327,5 +327,4 @@ Contributions are welcome! Please follow these steps:
 4. Submit a pull request
 
 ## 📄 License
-
 ISC
