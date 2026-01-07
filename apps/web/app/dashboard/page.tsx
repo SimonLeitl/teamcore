@@ -34,7 +34,7 @@ export default async function DashboardPage() {
         <div className="bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 p-6">
           <h2 className="text-lg font-semibold mb-2">Players</h2>
           <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-            Manage your team's player roster and statistics
+            Manage your team&apos;s player roster and statistics
           </p>
           <a
             href="/players"

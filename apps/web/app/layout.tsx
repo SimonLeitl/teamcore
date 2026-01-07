@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { createClient } from "@/lib/supabase/server";
@@ -39,9 +40,9 @@ export default async function RootLayout({
             <div className="flex h-14 items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="inline-block h-8 w-8 rounded-md bg-black dark:bg-white" aria-hidden />
-                <a href="/" className="text-sm font-semibold tracking-tight">
+                <Link href="/" className="text-sm font-semibold tracking-tight">
                   TeamCore
-                </a>
+                </Link>
               </div>
 
               {user && (

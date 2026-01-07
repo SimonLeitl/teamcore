@@ -38,7 +38,7 @@ export default function LoginPage({
       if (result && 'error' in result) {
         setError(result.error);
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -150,7 +150,7 @@ export default function LoginPage({
 
         {/* Footer note */}
         <p className="mt-6 text-center text-xs text-zinc-600 dark:text-zinc-400">
-          By continuing, you agree to TeamCore's Terms of Service and Privacy
+          By continuing, you agree to TeamCore&apos;s Terms of Service and Privacy
           Policy.
         </p>
       </div>
