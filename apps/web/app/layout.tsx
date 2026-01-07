@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { createClient } from "@/lib/supabase/server";
+import { UserMenu } from "@/components/UserMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +20,15 @@ export const metadata: Metadata = {
   description: "Modern football team management",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   return (
     <html lang="en">
       <body
@@ -33,25 +40,30 @@ export default function RootLayout({
             <div className="flex h-14 items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="inline-block h-8 w-8 rounded-md bg-black dark:bg-white" aria-hidden />
-                <a href="/" className="text-sm font-semibold tracking-tight">
+                <Link href="/" className="text-sm font-semibold tracking-tight">
                   TeamCore
-                </a>
+                </Link>
               </div>
 
-              <nav className="hidden md:flex items-center gap-6 text-sm">
-                <a href="/" className="hover:opacity-70 transition-opacity">Home</a>
-                <a href="/players" className="hover:opacity-70 transition-opacity">Players</a>
-                <a href="/teams" className="hover:opacity-70 transition-opacity">Teams</a>
-                <a href="/about" className="hover:opacity-70 transition-opacity">About</a>
-              </nav>
+              {user && (
+                <nav className="hidden md:flex items-center gap-6 text-sm">
+                  <a href="/dashboard" className="hover:opacity-70 transition-opacity">Dashboard</a>
+                  <a href="/players" className="hover:opacity-70 transition-opacity">Players</a>
+                  <a href="/teams" className="hover:opacity-70 transition-opacity">Teams</a>
+                </nav>
+              )}
 
               <div className="flex items-center gap-2">
-                <a
-                  href="/signin"
-                  className="inline-flex h-9 items-center rounded-md bg-black px-3 text-xs font-medium text-white transition-colors hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
-                >
-                  Sign in
-                </a>
+                {user ? (
+                  <UserMenu email={user.email!} />
+                ) : (
+                  <a
+                    href="/auth/login"
+                    className="inline-flex h-9 items-center rounded-md bg-black px-3 text-xs font-medium text-white transition-colors hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
+                  >
+                    Sign in
+                  </a>
+                )}
               </div>
             </div>
           </div>

@@ -4,15 +4,19 @@ TeamCore is a modular platform that connects playtime data with bonus and travel
 
 ## 🚀 Features
 
+- **Supabase Authentication**: Secure user authentication with email/password and OAuth support
+- **Protected Routes**: Middleware-based route protection for authenticated areas
 - **TypeScript Serverless Functions**: Built with TypeScript for type safety and better developer experience
 - **Vercel Deployment**: Ready to deploy serverless functions on Vercel's edge network
 - **Modular Architecture**: Easy to extend with additional API endpoints
+- **Database Migrations**: Automated database migrations with Supabase
 
 ## 📋 Prerequisites
 
-- Node.js 18.x or later
+- Node.js 22.x or later
 - npm or yarn
-- Vercel CLI (optional, for local development)
+- Supabase account (for authentication and database)
+- Vercel account (for deployment)
 
 ## 🛠️ Setup
 
@@ -22,7 +26,18 @@ TeamCore is a modular platform that connects playtime data with bonus and travel
 npm install
 ```
 
-### 2. Local Development
+### 2. Configure Environment Variables
+
+Copy the example environment file and add your Supabase credentials:
+
+```bash
+cd apps/web
+cp .env.local.example .env.local
+```
+
+See [docs/AUTHENTICATION.md](docs/AUTHENTICATION.md) for detailed setup instructions.
+
+### 3. Local Development
 
 To run the serverless functions locally using Vercel CLI:
 
@@ -32,7 +47,7 @@ npm run dev
 
 This will start a local development server at `http://localhost:3000`.
 
-### 3. Type Checking
+### 4. Type Checking
 
 To check TypeScript types without building:
 
@@ -311,7 +326,10 @@ npm run db:status
 
 ### Detailed Documentation
 
-For comprehensive migration documentation, including best practices, common patterns, and troubleshooting, see [MIGRATIONS.md](./MIGRATIONS.md).
+For comprehensive documentation, see:
+- [MIGRATIONS.md](./MIGRATIONS.md) - Database migration guide
+- [docs/AUTHENTICATION.md](./docs/AUTHENTICATION.md) - Authentication setup and usage
+- [SETUP_GUIDE.md](./SETUP_GUIDE.md) - Initial setup instructions
 
 ### Automated Migrations
 
