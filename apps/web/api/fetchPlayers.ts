@@ -58,9 +58,20 @@ export default async function handler(
     const authAdapter = createSupabaseAuthAdapter(publicSupabaseUrl, publicSupabaseAnonKey);
     await authAdapter.requireAuth(req);
   } catch (error) {
+    // Log the specific error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Authentication failed';
+    console.error(JSON.stringify({
+      level: 'error',
+      service: 'fetchPlayers',
+      context: 'authentication',
+      error: errorMessage,
+      timestamp: new Date().toISOString(),
+    }));
+
+    // Return a generic error message for security
     res.status(401).json({
       error: 'Unauthorized',
-      message: error instanceof Error ? error.message : 'Authentication required',
+      message: 'Authentication required. Please log in and try again.',
     });
     return;
   }

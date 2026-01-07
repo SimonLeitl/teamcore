@@ -95,12 +95,12 @@ export class SupabaseAuthAdapter {
  * Factory function to create a Supabase auth adapter
  * 
  * @param supabaseUrl - Supabase project URL
- * @param supabaseKey - Supabase API key (anon key for JWT verification)
+ * @param supabaseAnonKey - Supabase anon key (for JWT verification)
  * @returns SupabaseAuthAdapter instance
  */
 export function createSupabaseAuthAdapter(
   supabaseUrl: string,
-  supabaseKey: string
+  supabaseAnonKey: string
 ): SupabaseAuthAdapter {
-  return new SupabaseAuthAdapter(supabaseUrl, supabaseKey);
+  return new SupabaseAuthAdapter(supabaseUrl, supabaseAnonKey);
 }
