@@ -24,7 +24,7 @@ function isSafeUrl(url: string): boolean {
 export default function PlayerCard({ firstName, lastName, imagePath }: PlayerCardProps) {
   const [imageError, setImageError] = useState(false);
 
-  const safeImageSrc = imagePath && isSafeUrl(imagePath) ? imagePath : undefined;
+  const safeImageSrc = imagePath && isSafeUrl(imagePath) ? `${imagePath}1920xauto.webp` : undefined;
 
   return (
     <div className="bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 p-6 hover:shadow-lg transition-shadow">
