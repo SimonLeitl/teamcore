@@ -23,8 +23,8 @@ Then update the values:
 
 ```bash
 # Required for authentication and client-side operations
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+AUTH_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+AUTH_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 
 # Required for server-side operations (API functions)
 SUPABASE_URL=https://your-project-ref.supabase.co
@@ -35,7 +35,7 @@ SUPABASE_KEY=your-service-role-key-here
 
 1. Go to your Supabase project dashboard: https://app.supabase.com/project/_/settings/api
 2. Copy the **Project URL** → use for both `*_SUPABASE_URL` variables
-3. Copy the **anon public** key → use for `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+3. Copy the **anon public** key → use for `AUTH_PUBLIC_SUPABASE_ANON_KEY`
 4. Copy the **service_role** key → use for `SUPABASE_KEY`
 
 ⚠️ **Security Note**: The service_role key has admin privileges. Keep it secret and only use it server-side.
@@ -151,8 +151,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Verify authentication
   try {
     const authAdapter = createSupabaseAuthAdapter(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      process.env.AUTH_PUBLIC_SUPABASE_URL!,
+      process.env.AUTH_PUBLIC_SUPABASE_ANON_KEY!
     );
     const user = await authAdapter.requireAuth(req);
     
@@ -210,7 +210,7 @@ Customize authentication emails in your Supabase dashboard:
 ### "Invalid token" errors
 
 - Ensure environment variables are set correctly
-- Check that `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are available in the browser
+- Check that `AUTH_PUBLIC_SUPABASE_URL` and `AUTH_PUBLIC_SUPABASE_ANON_KEY` are available in the browser
 - Verify the token hasn't expired (default expiry is 1 hour)
 
 ### Redirects not working
@@ -245,8 +245,8 @@ npx supabase start
 
 2. Update `.env.local` with local credentials:
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key-from-supabase-start>
+AUTH_PUBLIC_SUPABASE_URL=http://localhost:54321
+AUTH_PUBLIC_SUPABASE_ANON_KEY=<anon-key-from-supabase-start>
 ```
 
 3. Start the dev server:

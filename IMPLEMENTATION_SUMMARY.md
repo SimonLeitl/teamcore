@@ -85,8 +85,8 @@ These three clients handle cookie-based session management across different rend
 #### Environment Variables
 - **.env.local.example**: Template for required config
   ```
-  NEXT_PUBLIC_SUPABASE_URL
-  NEXT_PUBLIC_SUPABASE_ANON_KEY
+  AUTH_PUBLIC_SUPABASE_URL
+  AUTH_PUBLIC_SUPABASE_ANON_KEY
   SUPABASE_URL
   SUPABASE_KEY
   ```

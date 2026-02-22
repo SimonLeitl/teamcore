@@ -11,8 +11,8 @@ import { createPlayerService } from './services/playerService';
  * Required environment variables:
  * - SUPABASE_URL: Supabase project URL
  * - SUPABASE_KEY: Supabase API key (service role key recommended)
- * - NEXT_PUBLIC_SUPABASE_URL: Public Supabase project URL
- * - NEXT_PUBLIC_SUPABASE_ANON_KEY: Public Supabase anon key (for auth verification)
+ * - AUTH_PUBLIC_SUPABASE_URL: Public Supabase project URL
+ * - AUTH_PUBLIC_SUPABASE_ANON_KEY: Public Supabase anon key (for auth verification)
  * - FUPA_API_URL: FUPA API endpoint URL (optional, defaults to TUS Ellmendingen squad)
  * 
  * @param req - Vercel request object
@@ -34,8 +34,8 @@ export default async function handler(
   // Validate required environment variables
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_KEY;
-  const publicSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const publicSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const publicSupabaseUrl = process.env.AUTH_PUBLIC_SUPABASE_URL;
+  const publicSupabaseAnonKey = process.env.AUTH_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
     res.status(500).json({
@@ -48,7 +48,7 @@ export default async function handler(
   if (!publicSupabaseUrl || !publicSupabaseAnonKey) {
     res.status(500).json({
       error: 'Configuration Error',
-      message: 'Missing required environment variables: NEXT_PUBLIC_SUPABASE_URL and/or NEXT_PUBLIC_SUPABASE_ANON_KEY',
+      message: 'Missing required environment variables: AUTH_PUBLIC_SUPABASE_URL and/or AUTH_PUBLIC_SUPABASE_ANON_KEY',
     });
     return;
   }
