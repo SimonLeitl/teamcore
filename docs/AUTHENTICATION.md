@@ -40,6 +40,8 @@ SUPABASE_KEY=your-service-role-key-here
 
 ⚠️ **Security Note**: The service_role key has admin privileges. Keep it secret and only use it server-side.
 
+⚠️ **Configuration Note**: The `AUTH_PUBLIC_*` variables are exposed to the browser via `next.config.ts`. This allows using a custom prefix instead of Next.js's default `NEXT_PUBLIC_` prefix.
+
 ## Architecture
 
 ### Client-Side Authentication
